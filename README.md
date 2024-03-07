@@ -1,2 +1,2 @@
-# Financial risk analysis-for-guvi-by-nandha-kumar
+# Financial risk analysis-for-guvi
 guvi data science project

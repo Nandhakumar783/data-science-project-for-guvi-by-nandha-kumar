@@ -1,0 +1,38 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Step 1: Load the dataset
+application_data = pd.read_csv('application_data.csv')
+
+# Step 2: Financial Analysis
+# Relationship between Income, Debt Levels, and Loan Default Probability
+plt.figure(figsize=(10, 6))
+sns.heatmap(application_data[['AMT_INCOME_TOTAL', 'AMT_CREDIT', 'TARGET']].corr(), annot=True, cmap='coolwarm')
+plt.title('Correlation Heatmap: Income, Debt Levels, and Loan Default Probability')
+plt.show()
+
+# Income Distribution Among Loan Applicants and its Influence on Loan Amounts and Approval Rates
+plt.figure(figsize=(12, 6))
+sns.histplot(application_data['AMT_INCOME_TOTAL'], kde=True)
+plt.title('Income Distribution Among Loan Applicants')
+plt.xlabel('Income')
+plt.ylabel('Frequency')
+plt.show()
+
+# Influence of Income on Loan Amounts and Approval Rates
+plt.figure(figsize=(12, 6))
+sns.boxplot(x='TARGET', y='AMT_INCOME_TOTAL', data=application_data)
+plt.title('Influence of Income on Loan Amounts and Approval Rates')
+plt.xlabel('Loan Default')
+plt.ylabel('Income')
+plt.show()
+
+# Comparison of Loan Amount Requested and Income Levels and its Impact on Default Rates
+plt.figure(figsize=(12, 6))
+sns.scatterplot(x='AMT_INCOME_TOTAL', y='AMT_CREDIT', hue='TARGET', data=application_data)
+plt.title('Loan Amount Requested vs. Income Levels by Default Status')
+plt.xlabel('Income')
+plt.ylabel('Loan Amount')
+plt.legend(title='Loan Default', loc='upper right')
+plt.show()

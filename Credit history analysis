@@ -1,0 +1,40 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Step 1: Load the dataset
+application_data = pd.read_csv('application_data.csv')
+
+# Step 2: Data Preprocessing
+# No preprocessing steps mentioned
+
+# Step 3: Exploratory Data Analysis (EDA)
+
+# Relationship between the number of inquiries to the Credit Bureau and past defaults on creditworthiness
+plt.figure(figsize=(10, 6))
+sns.barplot(x='AMT_REQ_CREDIT_BUREAU_MON', y='TARGET', data=application_data, estimator=lambda x: sum(x) / len(x))
+plt.title('Impact of Credit Bureau Inquiries on Creditworthiness')
+plt.xlabel('Number of Inquiries in Last Month')
+plt.ylabel('Default Rate')
+plt.show()
+
+# Relationships between the client's credit risk and reasons for rejection of their previous loan application
+reasons_for_rejection = ['CODE_REJECT_REASON_CLIENT', 'CODE_REJECT_REASON_HC', 'CODE_REJECT_REASON_LIMIT',
+                         'CODE_REJECT_REASON_SCO', 'CODE_REJECT_REASON_SCOFR']
+
+for reason in reasons_for_rejection:
+    plt.figure(figsize=(10, 6))
+    sns.barplot(x=reason, y='TARGET', data=application_data, estimator=lambda x: sum(x) / len(x))
+    plt.title(f'Default Rate by Reason for Rejection: {reason}')
+    plt.xlabel('Reason for Rejection')
+    plt.ylabel('Default Rate')
+    plt.xticks(rotation=45)
+    plt.show()
+
+# Type and length of credit history relevant to default risk assessment
+plt.figure(figsize=(10, 6))
+sns.barplot(x='DEF_60_CNT_SOCIAL_CIRCLE', y='TARGET', data=application_data, estimator=lambda x: sum(x) / len(x))
+plt.title('Impact of Credit History on Default Risk')
+plt.xlabel('Number of Defaults in Last 60 Days')
+plt.ylabel('Default Rate')
+plt.show()
